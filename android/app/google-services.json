@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "27534153818",
+    "firebase_url": "https://adapp-f9126.firebaseio.com",
+    "project_id": "adapp-f9126",
+    "storage_bucket": "adapp-f9126.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27534153818:android:c4e28ee2e062374e87e063",
+        "android_client_info": {
+          "package_name": "com.adapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27534153818-aqg21kcskhovlkimvm6eeaptf0o6sbjn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1YQ1JD9YSrRkbec0bgsEWuuq0frmzU1Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27534153818-aqg21kcskhovlkimvm6eeaptf0o6sbjn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
