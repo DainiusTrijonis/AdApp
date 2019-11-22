@@ -11,23 +11,23 @@ export default class RegisterScreen extends React.Component {
     super(props);
 
     this.state = {
-      email: null,
-      password: null, 
+      email: 'admin123@gmail.com',
+      password: 'admin123', 
     }
   }
 
-  initializeGame = () => {
+  initializeState = () => {
     this.setState({
-      email: null,
-      password: null,
+      email: '',
+      password: '',
     });
   }
 
   async register(email, password) {
-    try {
-      await auth().createUserWithEmailAndPassword(email, password);
-    } catch (e) {
-      console.error(e.message);
+        try {
+        await auth().createUserWithEmailAndPassword(email, password);
+        } catch (e) {
+        console.error(e.message);
     }
   }
   render() {
@@ -59,7 +59,7 @@ export default class RegisterScreen extends React.Component {
 
                 </View>
                 <View style={{marginTop:30,alignContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={this.register(this.state.email,this.state.password)} >
                             <Text>
                                 Register
                             </Text>
