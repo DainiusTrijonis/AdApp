@@ -4,7 +4,7 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 export default class HomeScreen extends React.Component {
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'black' }}>
         <Text style={{ marginTop: 50, fontSize: 25 }}>Home!</Text>
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
