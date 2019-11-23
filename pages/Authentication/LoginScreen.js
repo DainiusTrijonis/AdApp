@@ -1,20 +1,81 @@
 import React from 'react';
 import { Text, View, TextInput, StyleSheet, TouchableOpacity} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-export default class LoginScreen extends React.Component {
-  render() {
+import auth from '@react-native-firebase/auth';
+ 
+
+export default class RegisterScreen extends React.Component {
+
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            email: '',
+            password: '',
+            errorMsg: '',
+        }
+        this.handleErrorMsgChange = this.handleErrorMsgChange.bind(this);
+
+    }
+
+    componentDidMount(){
+        this.setState({
+            email:'',
+            password:'',
+        })
+    }
+
+
+    handleErrorMsgChange(message){
+        this.setState({
+            errorMsg:message
+        })
+    }
+
+    onPressLogin =() => {
+        if(this.state.email!='' && this.state.password!='')
+        {
+            this.logIn(this.state.email,this.state.password);
+
+        }
+
+    }
+    async logIn(email,password) {
+         await auth().signInWithEmailAndPassword(email,password)
+            .then( () => {
+                this.props.navigation.navigate('Profile');
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message
+                var humanReadable = error.message.substr(errorMessage.indexOf(']')+1, errorMessage.length);
+                this.handleErrorMsgChange(humanReadable);
+            });
+    }
+    render() {
+
+
+
     return (
         <View style={ styles.container}>
 
 
             <View style={styles.form}>
+                <View style={{marginTop:5,alignContent:'center',alignItems:'center'}}>
+                    <Text  style={{color:'white'}}>
+                        {this.state.errorMsg}
+                    </Text>
+                </View>
                 <View>
                     <View style={styles.credentialBox}>
                         <View style={{marginHorizontal:15}}>
                             <Ionicons name="ios-mail" size={35} color="darkgray" />
                         </View>
-                        <TextInput style={styles.input} autoCapitalize="none" placeholder="Email">
-                        </TextInput>
+                        <TextInput style={styles.input} autoCapitalize="none" placeholder="Email"
+                            onChangeText={email => this.setState({ email })}
+                            value={this.state.email}
+                        />
                     </View>
                 </View>
                 <View>
@@ -22,25 +83,21 @@ export default class LoginScreen extends React.Component {
                         <View style={{marginHorizontal:15}}>
                             <Ionicons name="ios-lock" size={35} color="darkgray" />
                         </View>
-                        <TextInput style={styles.input} secureTextEntry autoCapitalize="none" placeholder="Password" >
-                        </TextInput>
+                        <TextInput style={styles.input} secureTextEntry autoCapitalize="none" placeholder="Password" 
+                            onChangeText={password => this.setState({ password })}
+                            value={this.state.password}
+                        />
                     </View>
 
                 </View>
                 <View style={{marginTop:30,alignContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={styles.button}>
+                    <TouchableOpacity style={styles.button} onPress={this.onPressLogin} >
                             <Text>
-                                Log in
+                                Login
                             </Text>
                         </TouchableOpacity>
                 </View>
-                <View style={{marginTop:5,alignContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={styles.button}>
-                            <Text>
-                                Forgot password?
-                            </Text>
-                        </TouchableOpacity>
-                </View>
+
                 <TouchableOpacity onPress={() => this.props.navigation.navigate('Register')} style={{marginTop:5,alignContent:'center',alignItems:'center'}}>
                     <Text style={{color:'white'}}>
                         Register

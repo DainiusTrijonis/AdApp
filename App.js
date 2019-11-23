@@ -30,7 +30,6 @@ const SettingsStack = createStackNavigator(
   {
     Settings: { screen: SettingsScreen },
     Details: { screen: DetailsScreen },
-    Profile: { screen: ProfileScreen },
   },
   {
     defaultNavigationOptions: {
@@ -45,22 +44,21 @@ const SettingsStack = createStackNavigator(
 
 );
 const ProfileStack = createStackNavigator(
-  {
-    Profile: { screen: ProfileScreen },
-    Login: { screen: LoginScreen },
-    Register: { screen: RegisterScreen },
-  },
-  {
-    defaultNavigationOptions: {
-      headerStyle: {
-        backgroundColor: 'black',
-      },
-      headerTintColor: '#FFFFFF',
-      title: 'Profile',
-    },
-  },
-);
-
+	{
+	  Profile: { screen: ProfileScreen },
+	  Login: { screen: LoginScreen },
+	  Register: { screen: RegisterScreen },
+	},
+	{
+	  defaultNavigationOptions: {
+		headerStyle: {
+		  backgroundColor: 'black',
+		},
+		headerTintColor: '#FFFFFF',
+		title: 'Profile',
+	  },
+	},
+  );
 const App = createBottomTabNavigator(
   {
     Home: { screen: HomeStack },
@@ -91,7 +89,7 @@ const App = createBottomTabNavigator(
       inactiveTintColor: 'gray',
 
     },
-    initialRouteName: "Profile",
+    initialRouteName: "Home",
     
     tabBarOptions: {
       activeTintColor: '#e91e63',

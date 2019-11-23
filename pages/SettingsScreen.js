@@ -22,11 +22,6 @@ export default class SettingsScreen extends React.Component {
             onPress={() => this.props.navigation.navigate('Details')}>
             <Text>Open Detail Screen</Text>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Profile')}>
-            <Text>Open Profile Screen</Text>
-          </TouchableOpacity>
         </View>
       </View>
     );
