@@ -44,7 +44,10 @@ export default class RegisterScreen extends React.Component {
     async logIn(email,password) {
          await auth().signInWithEmailAndPassword(email,password)
             .then( () => {
-                this.props.navigation.navigate('Profile');
+                this.props.navigation.navigate('Profile',{
+                    loggedIn: 1,
+                    
+                });
             })
             .catch((error) => {
                 var errorCode = error.code;

@@ -12,15 +12,15 @@ import { firebase } from '@react-native-firebase/auth';
         this.state = {
 			loggedIn: 0
 		}
+
 		
 	}
-	componentDidMount()
+	componentDidMount(prevProps, prevState, snapshot)
 	{
 		firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 			  console.log('user logged '+user)
 			  this.setState({
-					loading: true,
 					loggedIn: 1
 				})
 			}
@@ -30,10 +30,7 @@ import { firebase } from '@react-native-firebase/auth';
 			}
 		 });
 	}
-	componentWillUnmount()
-	{
-
-	}
+	
 	logOut()
 	{
 		firebase.auth().onAuthStateChanged((user) => {

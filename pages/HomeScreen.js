@@ -1,26 +1,16 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import {StyleSheet } from 'react-native';
+import TodoApp from '../src/TodoApp'
+import store from '../src/store'
+import {Provider} from 'react-redux'
 
 export default class HomeScreen extends React.Component {
   
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center',backgroundColor:'black' }}>
-        <Text style={{ marginTop: 50, fontSize: 25 }}>Home!</Text>
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Settings')}>
-            <Text>Go to settng Tab</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => this.props.navigation.navigate('Details')}>
-            <Text>Open Details Screen</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <Provider store={store}>
+        <TodoApp/>
+      </Provider>
     );
   }
 }
