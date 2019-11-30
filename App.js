@@ -1,4 +1,3 @@
-
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {createAppContainer} from 'react-navigation';
@@ -11,6 +10,8 @@ import DetailsScreen from './pages/DetailsScreen';
 import ProfileScreen from './pages/ProfileScreen';
 import LoginScreen from './pages/Authentication/LoginScreen';
 import RegisterScreen from './pages/Authentication/RegisterScreen';
+
+
 const HomeStack = createStackNavigator(
   {
     Home: { screen: HomeScreen },

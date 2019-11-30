@@ -16,7 +16,7 @@ export default class ProfileScreen extends React.Component {
 
 	}
 	componentDidMount(prevProps, prevState, snapshot) {
-		firebase.auth().onAuthStateChanged((user) => {
+		const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				console.log('user logged ' + user)
 				this.setState({
@@ -28,9 +28,22 @@ export default class ProfileScreen extends React.Component {
 			}
 		});
 	}
+	componentWillUnmount()
+	{
+		const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+			if (user) {
+				console.log('user logged ' + user)
+			}
+			else if (user == null) {
+				console.log('user not logged in ')
+			}
+		});
+		unsubscribe();
+	}
+	
 
 	logOut() {
-		firebase.auth().onAuthStateChanged((user) => {
+		const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
 				console.log('signing out')
 				firebase.auth().signOut();
@@ -42,6 +55,7 @@ export default class ProfileScreen extends React.Component {
 				console.log('No user to sign out')
 			}
 		});
+		unsubscribe();
 	}
 	renderChange() {
 		switch (this.state.loggedIn) {

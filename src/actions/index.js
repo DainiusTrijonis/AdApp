@@ -3,42 +3,53 @@ import firestore from '@react-native-firebase/firestore';
 
 
 
+
+
 export const addAd = (text,price) => {
     return (dispatch, getState) => {
-        onCreateAds(text,price);
+        const ref = firestore().collection('ads');
+
+        const unsubscribe = auth().onAuthStateChanged((user) => {
+            if(user)
+            {
+                ref.add({
+                    text:text,
+                    price:price,
+                }).then( () => {
+                   dispatch({ type: 'ADD_AD',}); 
+                }).catch((err) =>{ 
+                    dispatch({ type: 'ADD_AD_ERROR', err});
+                });   
+            }
+            else
+            {
+                dispatch({type: 'ADD_AD_USER_NOT_LOGGED'});
+            }
+        })
+        unsubscribe();
+
     }
 }
 export const displayAds = () => {
     return (dispatch, getState) => {
-        fetchAds();
-    }
-}
+        const ref = firestore().collection('ads');
 
+        ref.get()
+        .then(querySnapshot => {
 
-async function onCreateAds(text,price) {
+            let data=[];
+            
+            let ids = querySnapshot.docs.map(doc => doc.id); //example  ["jQDMSccmxjka2E2BDJmU", "sdVgSscpmYmLEce5RKgL"]
+            let datas= querySnapshot.docs.map(doc => doc.data()); // example [{"price": "15555", "text": "bmw"}, {"price": "9999", "text": "audi"}]
 
-    const ref = firestore().collection('ads');
-
-    const uid = auth().currentUser.uid;
-    if(uid != null)
-    {
-        await ref.add({
-            author: uid,
-            text:text,
-            price:price,
-            createdAt: new Date()
+            for(let i=0;i<ids.length;i++)
+            {
+                data.push({id: ids[i], data: datas[i]});
+            }
+            dispatch({ type: 'DISPLAY_ADS', data});
+        }).catch((err) =>{
+            dispatch({ type: 'DISPLAY_ADS_ERROR',err});
         });
+        
     }
-}
-
-async function fetchAds() {
-
-    const ref = firestore().collection('ads');
-
-    await ref.get()
-    .then(querySnapshot => {
-        const data = querySnapshot.docs.map(doc => doc.data());
-        console.log(data);
-    })
-
 }
