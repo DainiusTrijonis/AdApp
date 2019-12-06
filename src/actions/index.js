@@ -53,29 +53,26 @@ export const displayAds = () => {
         
     }
 }
-export const delAd = () => {
+export const delAd = (id) => {
     return (dispatch, getState) => {
+        const unsubscribe = auth().onAuthStateChanged((user) => {
+            if(user)
+            {
+                const ref = firestore().collection('ads').doc(id).delete().then( function() {
+                    dispatch({ type: 'DELETE_AD', id})
+                }).catch(function(error) {
+                    dispatch({ type: 'DELETE_AD_ERROR', id})
+                })
+            }
+            else
+            {
+                dispatch({type: 'DELETE_AD_NOT_LOGGED'});
+            }
+        })
+        unsubscribe();
 
-        const ref = firestore().collection('ads').limit(2).orderBy('price',"asc")
-        ref.get()
-            .then(querySnapshot => {
-
-
-                let data=[];
-                
-                let ids = querySnapshot.docs.map(doc => doc.id); //example  ["jQDMSccmxjka2E2BDJmU", "sdVgSscpmYmLEce5RKgL"]
-                let datas= querySnapshot.docs.map(doc => doc.data()); // example [{"price": "15555", "text": "bmw"}, {"price": "9999", "text": "audi"}]
-                for(let i=0;i<ids.length;i++)
-                {
-                    data.push({id: ids[i], data: datas[i]});
-                }
-                
-
-                dispatch({ type: 'DISPLAY_ADS', data});
-            }).catch((err) =>{
-                dispatch({ type: 'DISPLAY_ADS_ERROR',err});
-            });
         
+    
     }
 }
 

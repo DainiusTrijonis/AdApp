@@ -18,10 +18,13 @@
             console.log('DISPLAYING ADS got error = ', action.err)
             return state;
         case 'DELETE_AD':
-            console.log('DELETED AD succesfully', action.data);
-            return action.data;
+            console.log('DELETED AD succesfully', action.id);
+            return state;
         case 'DELETE_AD_ERROR':
-            console.log('DELETING AD got error = ', action.err)
+            console.log('DELETED AD error', action.err);
+            return state;
+        case 'DELETE_AD_NOT_LOGGED':
+            console.log('USER NOT LOGGED IN FOR DELETING AD');
             return state;
             
 
