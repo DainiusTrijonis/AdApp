@@ -1,18 +1,23 @@
 import React from 'react';
-import { StyleSheet,View,TouchableOpacity ,Text} from 'react-native';
+import { StyleSheet,ScrollView,TouchableOpacity ,Text} from 'react-native';
+import {delAd} from '../actions/index'
+
+
 const AdList = ({ ads }) => (
     
-    <View>
+    <ScrollView>
         {ads.map(ad =>
-            <TouchableOpacity key={ad.id}>
+            <TouchableOpacity key={ad.id} >
                 <Text style={{padding:25,fontSize:24}}>
                     {ad.data.text}  {ad.data.price}
                 </Text>
             </TouchableOpacity>
         )}
-    </View>
+    </ScrollView>
 )
+
 export default AdList;
+
 const styles = StyleSheet.create({
   container: {
       flex: 1,

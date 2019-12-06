@@ -17,6 +17,14 @@
         case 'DISPLAY_ADS_ERROR':
             console.log('DISPLAYING ADS got error = ', action.err)
             return state;
+        case 'DELETE_AD':
+            console.log('DELETED AD succesfully', action.data);
+            return action.data;
+        case 'DELETE_AD_ERROR':
+            console.log('DELETING AD got error = ', action.err)
+            return state;
+            
+
         default:
             return state
     }

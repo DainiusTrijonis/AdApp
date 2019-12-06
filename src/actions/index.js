@@ -3,8 +3,6 @@ import firestore from '@react-native-firebase/firestore';
 
 
 
-
-
 export const addAd = (text,price) => {
     return (dispatch, getState) => {
         const ref = firestore().collection('ads');
@@ -32,24 +30,52 @@ export const addAd = (text,price) => {
 }
 export const displayAds = () => {
     return (dispatch, getState) => {
-        const ref = firestore().collection('ads');
 
+        const ref = firestore().collection('ads').limit(10).orderBy('price',"asc")
         ref.get()
-        .then(querySnapshot => {
+            .then(querySnapshot => {
 
-            let data=[];
-            
-            let ids = querySnapshot.docs.map(doc => doc.id); //example  ["jQDMSccmxjka2E2BDJmU", "sdVgSscpmYmLEce5RKgL"]
-            let datas= querySnapshot.docs.map(doc => doc.data()); // example [{"price": "15555", "text": "bmw"}, {"price": "9999", "text": "audi"}]
 
-            for(let i=0;i<ids.length;i++)
-            {
-                data.push({id: ids[i], data: datas[i]});
-            }
-            dispatch({ type: 'DISPLAY_ADS', data});
-        }).catch((err) =>{
-            dispatch({ type: 'DISPLAY_ADS_ERROR',err});
-        });
+                let data=[];
+                
+                let ids = querySnapshot.docs.map(doc => doc.id); //example  ["jQDMSccmxjka2E2BDJmU", "sdVgSscpmYmLEce5RKgL"]
+                let datas= querySnapshot.docs.map(doc => doc.data()); // example [{"price": "15555", "text": "bmw"}, {"price": "9999", "text": "audi"}]
+                for(let i=0;i<ids.length;i++)
+                {
+                    data.push({id: ids[i], data: datas[i]});
+                }
+                
+
+                dispatch({ type: 'DISPLAY_ADS', data});
+            }).catch((err) =>{
+                dispatch({ type: 'DISPLAY_ADS_ERROR',err});
+            });
         
     }
 }
+export const delAd = () => {
+    return (dispatch, getState) => {
+
+        const ref = firestore().collection('ads').limit(2).orderBy('price',"asc")
+        ref.get()
+            .then(querySnapshot => {
+
+
+                let data=[];
+                
+                let ids = querySnapshot.docs.map(doc => doc.id); //example  ["jQDMSccmxjka2E2BDJmU", "sdVgSscpmYmLEce5RKgL"]
+                let datas= querySnapshot.docs.map(doc => doc.data()); // example [{"price": "15555", "text": "bmw"}, {"price": "9999", "text": "audi"}]
+                for(let i=0;i<ids.length;i++)
+                {
+                    data.push({id: ids[i], data: datas[i]});
+                }
+                
+
+                dispatch({ type: 'DISPLAY_ADS', data});
+            }).catch((err) =>{
+                dispatch({ type: 'DISPLAY_ADS_ERROR',err});
+            });
+        
+    }
+}
+
