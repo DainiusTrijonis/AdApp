@@ -26,8 +26,26 @@
         case 'DELETE_AD_NOT_LOGGED':
             console.log('USER NOT LOGGED IN FOR DELETING AD');
             return state;
-            
-
+        case 'CHANGE_AD':
+            console.log(action.data);
+            for( let i = 0; i<state.length; i++)
+            {
+                if(state[i].id===action.ad.id)
+                {
+                    state[i].data.text = action.text;
+                    state[i].data.price = action.price;
+                    console.log('Changed data of ad', state[i].data);
+                }
+            }
+            return [
+                ...state
+            ];
+        case 'CHANGE_AD_ERROR':
+            console.log('CHANGE AD error', action.err);
+            return state;
+        case 'CHANGE_AD_NOT_LOGGED':
+            console.log('USER NOT LOGGED IN FOR CHANGING AD');
+            return state;
         default:
             return state
     }

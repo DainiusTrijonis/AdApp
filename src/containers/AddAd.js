@@ -14,6 +14,7 @@ class AddAd extends React.Component {
     this.props.dispatch(addAd(text,price));
     this.setState({ text:'',price:''});
   }
+  
   render() {
     return (
         <View style={{flexDirection:'row',marginHorizontal:20}}>

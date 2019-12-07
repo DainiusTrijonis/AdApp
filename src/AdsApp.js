@@ -6,9 +6,6 @@ import AddAd from './containers/AddAd';
 import VisibleAds from './containers/VisibleAds';
 import FetchAdsButton from './containers/FetchAdsButton';
 
-
-
-
 class AdsApp extends React.Component {
 
   state = {

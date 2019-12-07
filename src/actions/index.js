@@ -61,7 +61,7 @@ export const delAd = (id) => {
                 const ref = firestore().collection('ads').doc(id).delete().then( function() {
                     dispatch({ type: 'DELETE_AD', id})
                 }).catch(function(error) {
-                    dispatch({ type: 'DELETE_AD_ERROR', id})
+                    dispatch({ type: 'DELETE_AD_ERROR', error})
                 })
             }
             else
@@ -75,4 +75,28 @@ export const delAd = (id) => {
     
     }
 }
+export const onChangeAd = (text,price,ad) => {
+    return (dispatch, getState) => {
+        const unsubscribe = auth().onAuthStateChanged((user) => {
+            if(user)
+            {
+                const ref = firestore().collection('ads').doc(ad.id).update({
+                    text: text,
+                    price: price,
+                }).then( function() {
+                    dispatch({ type: 'CHANGE_AD', text, price, ad})
+                })
+            }
+            else
+            {
+                dispatch({type: 'USER NOT LOGGED IN FOR CHANGING AD'});
+            }
+        })
+        unsubscribe();
+
+        
+    
+    }
+}
+
 
