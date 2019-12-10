@@ -10,7 +10,9 @@ export default class ProfileScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			loggedIn: 0
+			loggedIn: 0,
+			email: '',
+
 		}
 
 
@@ -20,7 +22,8 @@ export default class ProfileScreen extends React.Component {
 			if (user) {
 				console.log('user logged ' + user)
 				this.setState({
-					loggedIn: 1
+					loggedIn: 1,
+					email: user.email,
 				})
 			}
 			else if (user == null) {
@@ -32,7 +35,10 @@ export default class ProfileScreen extends React.Component {
 	{
 		const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
 			if (user) {
-				console.log('user logged ' + user)
+				console.log('user logged ' + user.email);
+				this.setState({
+					loggedIn: 1,
+				})
 			}
 			else if (user == null) {
 				console.log('user not logged in ')
@@ -61,7 +67,10 @@ export default class ProfileScreen extends React.Component {
 		switch (this.state.loggedIn) {
 			case 1:
 				return (
-					<View style={{ backgroundColor: 'black', }}>
+					<View style={{flex:2, backgroundColor: 'black', alignContent: 'center', alignItems: 'center'}}>
+						<View>
+							<Text style={{color: 'white'}}> {this.state.email} </Text>
+						</View>
 						<TouchableOpacity
 							style={styles.button}
 							onPress={() => this.logOut()}>
@@ -71,7 +80,8 @@ export default class ProfileScreen extends React.Component {
 				)
 			case 0:
 				return (
-					<View>
+
+					<View style = {{flex: 2, backgroundColor: 'black', alignContent: 'center', alignItems: 'center'}}>
 						<TouchableOpacity
 							style={styles.button}
 							onPress={() => this.props.navigation.navigate('Login')}>
